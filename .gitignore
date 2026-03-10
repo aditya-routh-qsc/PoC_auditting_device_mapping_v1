@@ -3,4 +3,4 @@ prompts/
 __pycache__/
 *.pyc
 qsys_auditing_poc.db
-demo_qrs
+demo_qrs/

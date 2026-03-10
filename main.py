@@ -1,6 +1,7 @@
 from nicegui import ui, app
 import database
 import asyncio
+from get_sys_net_info import port_number
 
 # For local testing, we redirect to a mock page within our own app
 AUDIT_SYSTEM_BASE_URL = "/mock_audit/"
@@ -91,4 +92,4 @@ def mock_audit_page(device_id: str):
         ui.label(f'You are now viewing the audit page for: {device_id}').classes('text-xl mt-4')
 
 app.on_startup(database.init_db)
-ui.run(title='Device Auditing Mapper', port=8080, host='0.0.0.0')
+ui.run(title='Device Auditing Mapper', port=port_number, host='0.0.0.0')
