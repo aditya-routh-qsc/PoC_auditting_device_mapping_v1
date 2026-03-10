@@ -2,3 +2,4 @@ prompts/
 .venv/
 __pycache__/
 *.pyc
+qsys_auditing_poc.db
