@@ -9,7 +9,22 @@ AUDIT_SYSTEM_BASE_URL = "/mock_audit/"
 @ui.page('/')
 async def index(qr_id: int = None):
     if qr_id is None:
-        ui.label('Invalid request: No QR ID provided.').classes('text-red-500 m-4 text-xl')
+        with ui.card().classes('w-96 mx-auto mt-20 p-6 items-center shadow-md border-t-4 border-blue-500'):
+            ui.icon('qr_code', size='4rem').classes('text-blue-500 mb-2')
+            ui.label('Device Audit Portal').classes('text-2xl font-bold mb-2')
+            ui.label('Scan a QR code, or manually enter the ID printed on the device.').classes('text-center text-gray-600 mb-6')
+            
+            def process_manual_entry(): 
+                val = manual_qr_input.value
+                if not val or not val.isdigit():
+                    ui.notify('Please enter a valid numeric QR ID.', type='negative')
+                    return
+                # Instantly reload this exact same page, but append the GET parameter
+                ui.navigate.to(f"/?qr_id={val}")
+
+            manual_qr_input = ui.input('Enter QR ID (e.g., 100)').classes('w-full mb-4').on('keydown.enter', process_manual_entry)
+
+            ui.button('Find Device', on_click=process_manual_entry).classes('w-full bg-blue-600 text-white font-bold')
         return
 
     # Check database
@@ -51,7 +66,7 @@ async def edit_mapping():
         
         qr_input = ui.input('QR Code ID (e.g., 100)').classes('w-full mb-4')
         new_dev_input = ui.input('New Device ID (e.g., QSC-TEST-02)').classes('w-full mb-6')
-        
+
         async def update_mapping():
             # 1. Basic Validation
             if not qr_input.value or not new_dev_input.value:
@@ -81,6 +96,8 @@ async def edit_mapping():
 
         ui.button('Update Mapping', on_click=update_mapping).classes('w-full bg-orange-600 text-white font-bold')
 
+        qr_input.on('keydown.enter', lambda: new_dev_input.run_method('focus'))
+        new_dev_input.on('keydown.enter', update_mapping)
 
 
 # --- MOCK COMPANY LAN PAGE FOR TESTING ---

@@ -1,13 +1,17 @@
+from aiohttp.web_routedef import get
 import qrcode
 import os
 from PIL import Image, ImageDraw, ImageFont
-from get_sys_net_info import get_local_ip, get_port_number
+from get_sys_net_info import get_local_ip, get_port_number, get_local_hostname
 
 
 # --- CONFIGURATION ---
 LAPTOP_IP = get_local_ip() 
 PORT = get_port_number()
 OUTPUT_DIR = "demo_qrs"
+HOST_NAME = get_local_hostname()
+
+HOST = HOST_NAME
 
 def create_qr_codes(start_id: int, end_id: int = -1, skip_by: int = 1):
     if end_id == -1: 
@@ -15,11 +19,11 @@ def create_qr_codes(start_id: int, end_id: int = -1, skip_by: int = 1):
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
 
-    print(f"Detected Local IP: {LAPTOP_IP}")
+    print(f"Detected Host: {HOST}")
     print("Generating QR codes...")
 
     for qr_id in range(start_id, end_id + 1, skip_by):
-        url = f"http://{LAPTOP_IP}:{PORT}/?qr_id={qr_id}"
+        url = f"http://{HOST}:{PORT}/?qr_id={qr_id}"
         
         # 1. Generate the QR code with a SMALLER border (default is 4, we use 1)
         qr = qrcode.QRCode(box_size=10, border=1)
@@ -41,7 +45,7 @@ def create_qr_codes(start_id: int, end_id: int = -1, skip_by: int = 1):
         
         try:
             # You can also change the '24' here to make the text smaller/larger
-            font = ImageFont.truetype("arial.ttf", 24)
+            font = ImageFont.truetype("arial.ttf", 34)
         except IOError:
             font = ImageFont.load_default()
         
@@ -62,9 +66,11 @@ def create_qr_codes(start_id: int, end_id: int = -1, skip_by: int = 1):
         filepath = os.path.join(OUTPUT_DIR, f"qr_device_{qr_id}.png")
         new_img.save(filepath)
         
-        print(f"Saved: {filepath}")
+        # print(f"Saved: {filepath}")
 
 
 if __name__ == "__main__":
-    create_qr_codes(100, 1000, 100)
+    # create_qr_codes(100, 1000, 100)
     # create_qr_codes(101, 105)
+    # create_qr_codes(111)
+    create_qr_codes(801, 1000)
