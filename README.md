@@ -17,7 +17,7 @@ This system provides a dynamic web interface for scanning and mapping QR codes t
 Ensure you have Python 3.8+ installed. Install the required dependencies:
 
 ```bash
-pip install nicegui aiosqlite "qrcode[pil]" pillow
+pip install -r requirements.txt
 ```
 
 ## 📁 Project Structure
@@ -61,7 +61,7 @@ python generate_printable_grid.py
 ```bash
 python generate_pdf.py
 ```
-*This bundles the A4 sheets into a single `Q-Sys_QR_Audit_Batch.pdf` file, gracefully overwrites any older versions (if not currently open), and automatically cleans up the intermediate A4 sheets.*
+*This bundles the A4 sheets into a single `qrcodes-pdf.pdf` file, gracefully overwrites any older versions (if not currently open), and automatically cleans up the intermediate A4 sheets.*
 
 ## 🔒 Future Production Scope
 
