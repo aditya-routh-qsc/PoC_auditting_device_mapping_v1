@@ -12,7 +12,7 @@ def clear_processed_sheets(sheet_list):
             print(f"Error deleting {sheet_file}: {e}")
     print("Cleanup complete. The printable_sheets directory is clear.")
 
-def convert_sheets_to_pdf(input_dir="printable_sheets", output_filename="Q-Sys_QR_Audit_Batch.pdf"):
+def convert_sheets_to_pdf(input_dir="printable_sheets", output_filename="qr-codes-qsys-audit.pdf"):
     # 1. Gather all the generated A4 PNG sheets and sort them
     sheet_files = sorted(glob.glob(os.path.join(input_dir, "A4_QR_Sheet_*.png")))
     

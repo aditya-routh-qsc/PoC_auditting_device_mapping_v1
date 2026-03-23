@@ -5,3 +5,4 @@ qsys_auditing_poc.db
 demo_qrs/
 printable_sheets/
 *.pdf
+Dockerfile

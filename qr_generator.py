@@ -72,5 +72,6 @@ def create_qr_codes(start_id: int, end_id: int = -1, skip_by: int = 1):
 if __name__ == "__main__":
     # create_qr_codes(100, 1000, 100)
     # create_qr_codes(101, 105)
-    # create_qr_codes(111)
-    create_qr_codes(801, 1000)
+    create_qr_codes(111)
+    # create_qr_codes(801, 1000)
+    # create_qr_codes(1, 1000)
